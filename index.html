@@ -20,6 +20,8 @@
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Site CSS -->
@@ -40,19 +42,113 @@
 </head>
 
 <style type="text/css">
-    /*.pad-bottom-100 {
-        padding-bottom: 10px;
+    .reserve-book-btn button:hover {
+        color: #1f1f1f;
+        background-color: white;
     }
 
-    .pad-top-100 {
-        padding-top: 10px;
-    }*/
+    .cart-notification {
+        position: relative;
+        display: inline-block;
+    }
+
+    .cart-notification .cart-count {
+        position: absolute;
+        top: 30px;
+        background-color: red;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 50%;
+        padding: 0px;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+    }
+
+    .cart-notification .fa-shopping-cart {
+        font-size: 24px;
+    }
+
+
+.sidebar {
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    right: 0;
+    background-color: white;
+    z-index: 999;
+    transition: all 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.15) -15px 0px 25px 0px;
+}
+
+.bar {
+    display: block;
+    height: 5px;
+    width: 50px;
+    background-color: #EF8354;
+    margin: 10px auto;
+}
+
+
+.move-to-left {
+    -webkit-transform: translateX(-400px);
+    -moz-transform: translateX(-400px);
+    -ms-transform: translateX(-400px);
+    -o-transform: translateX(-400px);
+    transform: translateX(-400px);
+}
+
+.sidebar-list {
+    text-align: center;
+}
+
+
+.sidebar-anchor:hover:before {
+    width: 100%;
+}
+
+.circle {
+    width: 10%;
+    height: 4%;
+    border-radius: 50%;
+    margin-left: -5%;
+    background-color: #EF8354;
+}
+
+.close {
+    float: left;
+    font-size: 30px;
+    opacity: 1;
+    color: white;
+    margin-left: 30%;
+    margin-top: 10%;
+}
+
+.cart-footer {
+    padding: 20px 15px 0px;
+    text-align: center;
+    margin-top: 125%;
+    box-shadow: 0px -3px 7px 0px rgba(0, 0, 0, 0.08);
+}
+
+.action-cart {
+    line-height: inherit;
+    border: 2px dotted #ccc;
+    background: #f5f5f5;
+    color: #202020;
+    text-transform: capitalize;
+    border-radius: 4px;
+    opacity: 1;
+    text-align: center;
+}
 </style>
 
 <body>
     <div id="loader">
         <div id="status"></div>
     </div>
+
     <div id="site-header">
         <header id="header" class="header-block-top">
             <div class="container">
@@ -73,14 +169,39 @@
                                     </a>
                                 </div>
                             </div>
+
                             <div id="navbar" class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li class="active"><a href="#banner">Inicio</a></li>
-                                    <li><a href="#about">Nosotros</a></li>
-                                    <li><a href="#menu">Menu</a></li>
-                                    <li><a href="#gallery">Galería</a></li>
-                                    <li><a href="#reservation">Reserva</a></li>
-                                    <li><a href="#footer">Contáctanos</a></li>
+                                    <li class="active">
+                                        <a href="#banner">Inicio</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#about">Nosotros</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#menu">Menu</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#reservation">Reserva</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#footer">Contáctanos</a>
+                                    </li>
+
+                                    <li>
+                                        <a><i class="fas fa-user-circle" style="font-size: large;"></i></a>
+                                    </li>
+
+                                    <li>
+                                        <a class="cart-notification" onclick="openSidebar();" style="cursor: pointer;">
+                                            <i class="fas fa-shopping-cart" style="font-size: large;"></i>
+                                            <span class="cart-count"><label>5</label></span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- end nav-collapse -->
@@ -94,8 +215,59 @@
         </header>
         <!-- end header -->
     </div>
-	<!-- end site-header -->
-	
+    <!-- end site-header -->
+ 
+
+    <div class="sidebar" style="display: none;">
+        <div class="circle" onclick="closeSidebar();">
+            <a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
+        </div>
+        <div class="text-col" style="text-align: center;">
+            <h3>Tolal Pedidos</h3>
+        </div>
+        <hr>
+        <ul class="sidebar-list">
+            <li> 
+                <div class="cart-info-group">
+                    <a><img src="images/sopa-entrada.jpg" alt="producto" style="width: 30%; border-radius: 10%;"></a>  
+
+                    <div class="cart-info" precio="2">
+                        <h3>Sopa</h3>
+                        <p>Precio Unidad - S/. 2.00</p>
+                    </div>
+
+                    <div>
+                        <div>
+                            <button class="action-cart" title="Quitar" onclick="aumentar();"><i class="fa fa-plus"></i></button>  
+
+                            <input type="text" class="action-cart" title="Cantidad" id="cantidad" name="cantidad" value="1" style="width: 30%">
+
+                            <button class="action-cart" title="Agregar" onclick="disminuir();"><i class="fa fa-minus"></i></button>
+
+                            <button class="action-cart" onclick="eliminar();"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>    
+                        </div>    
+
+                        <div id="subtotal">
+                            <label>S/. 2.00</label>
+                        </div>  
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <div class="cart-footer">
+            <div class="checkout-price" style="font-family: 'nautilus_pompiliusregular';">
+                <h3>S/. 2.00</h3>
+            </div>
+
+            <div class="reserve-book-btn text-center" style="padding-top: 0px;" onclick="solicitarPedido()">
+                <button class="hvr-underline-from-center">Solicitar</button>
+            </div>
+        </div>
+    </div>
+
+
+    
     <div id="banner" class="banner full-screen-mode parallax">
         <div class="container pr">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -196,9 +368,6 @@
                             </div>
                             <!-- end special-menu -->
 
-                            <div class="book-btn">
-                                <a href="#reservation" class="table-btn hvr-underline-from-center">Reservar Mesa</a>
-                            </div>
                             <!--a href="#about">
                                 <div class="mouse"></div>
                             </a-->
@@ -244,7 +413,7 @@
         <!-- end container -->
     </div>
 
-    <div id="menu" class="menu-main pad-top-100 pad-bottom-100">
+    <div id="menu" class="menu-main pad-top-100 pad-bottom-100" style="padding-bottom: 20px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -254,27 +423,29 @@
 
                     <div class="tab-menu">
                         <div class="slider slider-nav">
-                            <div class="tab-title-menu">
+                            <a href="#" class="tab-title-menu" onclick="openTab(event, 'Tab1')" style="cursor: pointer;">
                                 <h2>ENTRADAS</h2>
                                 <p> <i class="flaticon-canape"></i> </p>
-                            </div>
-                            <div class="tab-title-menu">
+                            </a>
+
+                            <a href="#" class="tab-title-menu" onclick="openTab(event, 'Tab2')" style="cursor: pointer;">
                                 <h2>PLATOS PRINCIPALES</h2>
                                 <p> <i class="flaticon-dinner"></i> </p>
-                            </div>
-                            <div class="tab-title-menu">
+                            </a>
+
+                            <a href="#" class="tab-title-menu" onclick="openTab(event, 'Tab3')" style="cursor: pointer;">
                                 <h2>POSTRES</h2>
                                 <p> <i class="flaticon-desert"></i> </p>
-                            </div>
-                            <div class="tab-title-menu">
+                            </a>
+
+                            <a href="#" class="tab-title-menu" onclick="openTab(event, 'Tab4')" style="cursor: pointer;">
                                 <h2>BEBIDAS</h2>
                                 <p> <i class="flaticon-coffee"></i> </p>
-                            </div>
+                            </a>
                         </div>
-
-
                     </div>
                     <!-- end tab-menu -->
+
                 </div>
                 <!-- end col -->
             </div>
@@ -284,7 +455,78 @@
     </div>
     <!-- end menu -->
 
-    <div id="our_team" class="team-main pad-top-100 pad-bottom-100 parallax">
+    <div id="Tab1" class="team-main pad-top-100 pad-bottom-100 parallax tabcontent">
+        <div class="container container-tab">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="team-box">
+                        <div class="row">
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a><img src="images/sopa-entrada.jpg" alt="sopa-entrada" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Sopa</h3>
+                                        <p>Las sopas han sido tradicionalmente un plato para comer antes de la comida principal. Aunque lo más común es que se sirvan calientes, también existen opciones frías.</p>
+                                        <h3>S/. 2.00</h3>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/canelones.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Canelones</h3>
+                                        <p>Canelones de calabacín rellenos de atún una entrada ligera para tu cena de Navidad. Receta fácil, económica y rápida.</p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/ensalada-aguacate.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Ensalada de Aguacate</h3>
+                                        <p>Esta ensalada de huevo y aguacate funciona muy bien sola, con un poco de pan al lado o con un plato de sopa. Ideal para una comida ligera y saludable.</p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ 
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- end team-box -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end team-main -->
+
+    <div id="Tab2" class="team-main pad-top-100 pad-bottom-100 parallax tabcontent" style="display: none;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -297,16 +539,16 @@
                                     </div>
                                     <div class="text-col">
                                         <h3>Arroz con Pollo</h3>
-                                        <p>El arroz es una gran fuente de carbohidratos complejos, que proporcionan energía al cuerpo de manera constante y duradera. Por otro lado, el pollo es una excelente fuente de proteínas, vitaminas y minerales esenciales, además de ser bajo en grasas saturadas.</p>
-                                        <ul class="team-social">
-                                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                        </ul>
+                                        <p>El arroz es una gran fuente de carbohidratos complejos, que proporcionan energía al cuerpo de manera constante y duradera. <!--Por otro lado, el pollo es una excelente fuente de proteínas, vitaminas y minerales esenciales, además de ser bajo en grasas saturadas. --></p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- end col -->
+
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
@@ -315,15 +557,15 @@
                                     <div class="text-col">
                                         <h3>Seco de Res</h3>
                                         <p>guiso de carne de vaca, cabrito u otro animal, macerada en vinagre, que se sirve acompañado de arroz y una salsa de ají, huacatay y culantro.</p>
-                                        <ul class="team-social">
-                                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                        </ul>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- end col -->
+
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
@@ -332,11 +574,10 @@
                                     <div class="text-col">
                                         <h3>Tallarín con Pollo</h3>
                                         <p>Los tallarines rojos con pollo son un plato muy popular en Perú. Una receta sencilla de preparar, perfecta para diario, fruto de la fusión de la gastronomía peruana con la italiana.</p>
-                                        <ul class="team-social">
-                                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                                        </ul>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -356,6 +597,145 @@
     </div>
     <!-- end team-main -->
 
+    <div id="Tab3" class="team-main pad-top-100 pad-bottom-100 parallax tabcontent" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="team-box">
+                        <div class="row">
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/frutas-rojas.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Frutas Rojas</h3>
+                                        <p></p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/tarta-zanahoria.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Tarta de Zanahoria</h3>
+                                        <p></p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/tarta-queso.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Tarta de Queso</h3>
+                                        <p></p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ 
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- end team-box -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end team-main -->
+
+    <div id="Tab4" class="team-main pad-top-100 pad-bottom-100 parallax tabcontent" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="team-box">
+                        <div class="row">
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/sangria-melocoton.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Sangría de Melocotón</h3>
+                                        <p>¿Por qué no versionar el clásico de siempre? Aquí tenéis una sangría de melocotón, de sabor y color muy atractivos, que saciará la sed y os alejará del típico sabor de siempre pero sin perder la esencia. No te la puedes perder.</p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/limonada-granada.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Limonada de Granada</h3>
+                                        <p>Aunque os parezca increíble, esta bebida es sumamente recomendada para los niños y los ancianos, ya que la granada es una fruta ideal para mantener altas las defensas del organismo. Para variar un poco de la típica limonada.</p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <div class="sf-team">
+                                    <div class="thumb">
+                                        <a href="#"><img src="images/jugo-naranja.jpg" alt=""></a>
+                                    </div>
+                                    <div class="text-col">
+                                        <h3>Jugo de Naranja</h3>
+                                        <p>Bebidas energizantes a base de limón y naranja, como una opción más natural, aprovechando las propiedades nutritivas de las frutas de nuestra región.</p>
+                                        
+                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                                            <button class="hvr-underline-from-center">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ 
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- end team-box -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end team-main -->
 
     <div id="reservation" class="reservations-main pad-top-100 pad-bottom-100">
         <div class="container">
@@ -529,8 +909,8 @@
                                 <p>
                                     <i class="fa fa-mobile" aria-hidden="true"></i>
                                     <span>
-									+91 80005 89080 
-								</span>
+                                    +91 80005 89080 
+                                </span>
                                 </p>
                                 <p>
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -601,6 +981,58 @@
     <script src="js/bootstrap.min.js"></script>
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
+
+    <script type="text/javascript">
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+          
+            // Ocultar todos los contenidos de las pestañas
+            tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+          
+            // Remover la clase "active" de todos los enlaces de pestañas
+            tablinks = document.getElementsByClassName("tab-title-menu");
+
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+            }
+          
+            // Mostrar el contenido de la pestaña seleccionada y agregar la clase "active" al enlace de la pestaña
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " is-active";
+        }
+ 
+        function openSidebar() {
+
+            $(".sidebar").show();
+            
+            $(".sidebar-item").addClass("active");
+        }
+
+        function closeSidebar() {
+
+            $(".sidebar").hide();
+        }
+
+
+        function aumentar() {
+            var elemento = $("#cantidad").val();
+            var cantidad = parseInt(elemento);
+            cantidad ++;
+            $("#cantidad").val(cantidad);
+        }
+
+        function disminuir() {
+            var elemento = $("#cantidad").val();
+            var cantidad = parseInt(elemento);
+            cantidad --;
+            $("#cantidad").val(cantidad);
+        }
+    </script>
 </body>
 
 </html>
