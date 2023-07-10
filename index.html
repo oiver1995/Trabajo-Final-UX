@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <!-- Basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,6 +21,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Site CSS -->
@@ -34,42 +35,38 @@
     <!-- Modernizer -->
     <script src="js/modernizer.js"></script>
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <!-- Sweet Alert -->
+    <script src="assets/js/plugin/sweetalert2/sweetalert2.all.js"></script>
 </head>
 
 <style type="text/css">
-    .reserve-book-btn button:hover {
-        color: #1f1f1f;
-        background-color: white;
-    }
+.reserve-book-btn button:hover {
+    color: #1f1f1f;
+    background-color: white;
+}
 
-    .cart-notification {
-        position: relative;
-        display: inline-block;
-    }
+.cart-notification {
+    position: relative;
+    display: inline-block;
+}
 
-    .cart-notification .cart-count {
-        position: absolute;
-        top: 30px;
-        background-color: red;
-        color: white;
-        font-size: 12px;
-        font-weight: bold;
-        border-radius: 50%;
-        padding: 0px;
-        width: 16px;
-        height: 16px;
-        text-align: center;
-    }
+.cart-notification .cart-count {
+    position: absolute;
+    top: 30px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 0px;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+}
 
-    .cart-notification .fa-shopping-cart {
-        font-size: 24px;
-    }
-
+.cart-notification .fa-shopping-cart {
+    font-size: 24px;
+}
 
 .sidebar {
     height: 100%;
@@ -90,7 +87,6 @@
     margin: 10px auto;
 }
 
-
 .move-to-left {
     -webkit-transform: translateX(-400px);
     -moz-transform: translateX(-400px);
@@ -101,8 +97,11 @@
 
 .sidebar-list {
     text-align: center;
+    height: 72%;
+    padding: 0px 15px;
+    max-height: calc(100vh - 210px);
+    overflow-y: scroll;
 }
-
 
 .sidebar-anchor:hover:before {
     width: 100%;
@@ -111,6 +110,7 @@
 .circle {
     width: 10%;
     height: 4%;
+    cursor: pointer;
     border-radius: 50%;
     margin-left: -5%;
     background-color: #EF8354;
@@ -128,7 +128,6 @@
 .cart-footer {
     padding: 20px 15px 0px;
     text-align: center;
-    margin-top: 125%;
     box-shadow: 0px -3px 7px 0px rgba(0, 0, 0, 0.08);
 }
 
@@ -141,6 +140,16 @@
     border-radius: 4px;
     opacity: 1;
     text-align: center;
+}
+
+.toast-success {
+    border: 1px #e75b1e;
+    background: #e75b1e;
+    text-align: left;
+}
+
+#toast-container > .toast {
+  opacity: 0.9 !important;
 }
 </style>
 
@@ -180,7 +189,7 @@
                                         <a href="#about">Nosotros</a>
                                     </li>
 
-                                    <li>
+                                    <li class="navbar-menu">
                                         <a href="#menu">Menu</a>
                                     </li>
 
@@ -199,7 +208,7 @@
                                     <li>
                                         <a class="cart-notification" onclick="openSidebar();" style="cursor: pointer;">
                                             <i class="fas fa-shopping-cart" style="font-size: large;"></i>
-                                            <span class="cart-count"><label>5</label></span>
+                                            <label class="cart-count"><span>0</span></label>
                                         </a>
                                     </li>
                                 </ul>
@@ -216,7 +225,6 @@
         <!-- end header -->
     </div>
     <!-- end site-header -->
- 
 
     <div class="sidebar" style="display: none;">
         <div class="circle" onclick="closeSidebar();">
@@ -225,39 +233,16 @@
         <div class="text-col" style="text-align: center;">
             <h3>Tolal Pedidos</h3>
         </div>
+
         <hr>
+
         <ul class="sidebar-list">
-            <li> 
-                <div class="cart-info-group">
-                    <a><img src="images/sopa-entrada.jpg" alt="producto" style="width: 30%; border-radius: 10%;"></a>  
-
-                    <div class="cart-info" precio="2">
-                        <h3>Sopa</h3>
-                        <p>Precio Unidad - S/. 2.00</p>
-                    </div>
-
-                    <div>
-                        <div>
-                            <button class="action-cart" title="Quitar" onclick="aumentar();"><i class="fa fa-plus"></i></button>  
-
-                            <input type="text" class="action-cart" title="Cantidad" id="cantidad" name="cantidad" value="1" style="width: 30%">
-
-                            <button class="action-cart" title="Agregar" onclick="disminuir();"><i class="fa fa-minus"></i></button>
-
-                            <button class="action-cart" onclick="eliminar();"><i class="fas fa-trash-alt" aria-hidden="true"></i></button>    
-                        </div>    
-
-                        <div id="subtotal">
-                            <label>S/. 2.00</label>
-                        </div>  
-                    </div>
-                </div>
-            </li>
+            <li id="carrito"></li>
         </ul>
-
+ 
         <div class="cart-footer">
             <div class="checkout-price" style="font-family: 'nautilus_pompiliusregular';">
-                <h3>S/. 2.00</h3>
+                <h3>Total: S/. <span id="precio-total"></span> </h3>
             </div>
 
             <div class="reserve-book-btn text-center" style="padding-top: 0px;" onclick="solicitarPedido()">
@@ -265,8 +250,6 @@
             </div>
         </div>
     </div>
-
-
     
     <div id="banner" class="banner full-screen-mode parallax">
         <div class="container pr">
@@ -290,9 +273,9 @@
                                                         <a href="#" class="item-hover">
                                                             <div class="item-info">
                                                                 <div class="headline">
-                                                                    SALMON STEAK
+                                                                    FILETE DE SALMÓN
                                                                     <div class="line"></div>
-                                                                    <div class="dit-line">Lorem ipsum dolor sit amet, consectetur adip aliqua. Ut enim ad minim venia.</div>
+                                                                    <div class="dit-line">El salmón es un pescado azul. Su alto contenido en ácidos grasos Omega 3, aporta a nuestra salud grandes beneficios.</div>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -304,9 +287,9 @@
                                                         <a href="#" class="item-hover">
                                                             <div class="item-info">
                                                                 <div class="headline">
-                                                                    ITALIAN PIZZA
+                                                                    PIZZA ITALIANA 
                                                                     <div class="line"></div>
-                                                                    <div class="dit-line">Lorem ipsum dolor sit amet, consectetur adip aliqua. Ut enim ad minim venia.</div>
+                                                                    <div class="dit-line">La pizza es una preparación culinaria que consiste en un pan plano, habitualmente de forma circular.</div>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -320,7 +303,7 @@
                                                                 <div class="headline">
                                                                     VEG. ROLL
                                                                     <div class="line"></div>
-                                                                    <div class="dit-line">Lorem ipsum dolor sit amet, consectetur adip aliqua. Ut enim ad minim venia.</div>
+                                                                    <div class="dit-line">Envoltura vegetariana, cubierta de harina crujiente y la verdura picante es pareja perfecta.</div>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -332,9 +315,9 @@
                                                         <a href="#" class="item-hover">
                                                             <div class="item-info">
                                                                 <div class="headline">
-                                                                    SALMON STEAK
+                                                                    FILETE DE SALMÓN
                                                                     <div class="line"></div>
-                                                                    <div class="dit-line">Lorem ipsum dolor sit amet, consectetur adip aliqua. Ut enim ad minim venia.</div>
+                                                                    <div class="dit-line">Es una pieza de forma rectangular o triangular, con un color rosado intenso y una textura firme y suave.</div>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -348,7 +331,7 @@
                                                                 <div class="headline">
                                                                     VEG. ROLL
                                                                     <div class="line"></div>
-                                                                    <div class="dit-line">Lorem ipsum dolor sit amet, consectetur adip aliqua. Ut enim ad minim venia.</div>
+                                                                    <div class="dit-line">Envoltura vegetariana, cubierta de harina crujiente y la verdura picante es pareja perfecta.</div>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -366,6 +349,7 @@
                                 </div>
                                 <!-- end container -->
                             </div>
+                            <!-- end special-menu -->
                             <!-- end special-menu -->
 
                             <!--a href="#about">
@@ -460,63 +444,11 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="team-box">
-                        <div class="row">
 
-                            <div class="col-md-4 col-sm-6">
-                                <div class="sf-team">
-                                    <div class="thumb">
-                                        <a><img src="images/sopa-entrada.jpg" alt="sopa-entrada" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></a>
-                                    </div>
-                                    <div class="text-col">
-                                        <h3>Sopa</h3>
-                                        <p>Las sopas han sido tradicionalmente un plato para comer antes de la comida principal. Aunque lo más común es que se sirvan calientes, también existen opciones frías.</p>
-                                        <h3>S/. 2.00</h3>
-                                        
-                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
-                                            <button class="hvr-underline-from-center">Agregar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 col-sm-6">
-                                <div class="sf-team">
-                                    <div class="thumb">
-                                        <a href="#"><img src="images/canelones.jpg" alt=""></a>
-                                    </div>
-                                    <div class="text-col">
-                                        <h3>Canelones</h3>
-                                        <p>Canelones de calabacín rellenos de atún una entrada ligera para tu cena de Navidad. Receta fácil, económica y rápida.</p>
-                                        
-                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
-                                            <button class="hvr-underline-from-center">Agregar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 col-sm-6">
-                                <div class="sf-team">
-                                    <div class="thumb">
-                                        <a href="#"><img src="images/ensalada-aguacate.jpg" alt=""></a>
-                                    </div>
-                                    <div class="text-col">
-                                        <h3>Ensalada de Aguacate</h3>
-                                        <p>Esta ensalada de huevo y aguacate funciona muy bien sola, con un poco de pan al lado o con un plato de sopa. Ideal para una comida ligera y saludable.</p>
-                                        
-                                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
-                                            <button class="hvr-underline-from-center">Agregar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
- 
-                        </div>
+                        <div class="row" id="items"></div>
                         <!-- end row -->
-
                     </div>
                     <!-- end team-box -->
-
                 </div>
                 <!-- end col -->
             </div>
@@ -769,7 +701,7 @@
                             <!-- end col -->
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <div class="form-box">
-                                    <input type="number" name="cantidad" id="cantidad" placeholder="Cantidad Personas">
+                                    <input type="number" name="cantPer" id="cantPer" placeholder="Cantidad Personas">
                                 </div>
                             </div>
                             <!-- end col -->
@@ -982,13 +914,16 @@
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
 
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script type="text/javascript">
 
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
           
-            // Ocultar todos los contenidos de las pestañas
-            tabcontent = document.getElementsByClassName("tabcontent");
+            // Ocultar todos los contenidos de las pestañas 
+            tabcontent = document.getElementsByClassName("tabcontent"); 
 
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
@@ -1018,19 +953,183 @@
             $(".sidebar").hide();
         }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Variables
+            const baseDeDatos = [
+                {
+                    id: 1,
+                    nombre: 'Sopa',
+                    precio: '2.00',
+                    imagen: 'sopa-entrada.jpg',
+                    descripcion: 'Las sopas han sido tradicionalmente un plato para comer antes de la comida principal. Aunque lo más común es que se sirvan calientes, también existen opciones frías.'
+                },
+                {
+                    id: 2,
+                    nombre: 'Canelones',
+                    precio: '3.00',
+                    imagen: 'canelones.jpg',
+                    descripcion: 'Canelones de calabacín rellenos de atún una entrada ligera para tu cena de Navidad. Receta fácil, económica y rápida.'
+                },
+                {
+                    id: 3,
+                    nombre: 'Ensalada de Aguacate',
+                    precio: '3.50',
+                    imagen: 'ensalada-aguacate.jpg',
+                    descripcion: 'Esta ensalada de huevo y aguacate funciona muy bien sola, con un poco de pan al lado o con un plato de sopa. Ideal para una comida ligera y saludable.'
+                },
+            ];
 
-        function aumentar() {
-            var elemento = $("#cantidad").val();
+            let carrito = [];
+
+            //FUNCIONES
+            /*Dibuja todos los productos a partir de la base de datos.*/
+            function renderizarProductos() {
+                baseDeDatos.forEach((info) => {
+
+                    var producto = '<div class="col-md-4 col-sm-6">'+
+                                        '<div class="sf-team">'+
+                                            '<div class="thumb">'+
+                                                '<a><img src="images/'+info.imagen+'" alt="sopa-entrada"></a>'+
+                                            '</div>'+
+                                            '<div class="text-col">'+
+                                                '<h3>'+info.nombre+'</h3>'+
+                                                '<p>'+info.descripcion+'</p>'+
+                                                '<h3>'+info.precio+'</h3>'+
+                                                
+                                                '<div class="reserve-book-btn text-center" style="padding-top: 0px;">'+
+                                                    '<button class="hvr-underline-from-center agregar-producto" marcador="'+info.id+'"">Agregar</button>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>';
+
+                    $('#items').append(producto);
+                });
+            }
+
+            /*Evento para añadir un producto al carrito de la compra*/
+            $(document).on("click",".agregar-producto", function(){
+                var dataID = $(this).attr("marcador");
+                carrito.push(dataID);
+
+                swal({
+                    type: "success",
+                    title: "Producto",
+                    text: "Producto agregado correctamente",
+                    showCancelButton: false,
+                    confirmButtonColor: "#e75b1e",
+                    cancelButtonColor : "#e75b1e",
+                    confirmButtonText : "OK",
+                }).then(function(result){
+                    if (result.value) {
+                        renderizarCarrito();
+                    }
+                });
+            });
+
+            // Verificar si existe un estado guardado
+            if(localStorage.getItem('menu') !== null) {
+              // Restaurar el estado anterior de la pestaña
+              var tabState = localStorage.getItem('menu');
+              // Actualizar el contenido de la pestaña con el estado guardado
+              $('#menu').html(tabState);
+            }
+
+            /*Dibuja todos los productos guardados en el carrito*/
+            function renderizarCarrito() {
+                // Vaciamos todo el html
+                $("#carrito").empty();
+
+                // Quitamos los duplicados
+                const carritoSinDuplicados = [...new Set(carrito)];
+
+                // Generamos los Nodos a partir de carrito
+                carritoSinDuplicados.forEach((item) => {
+                    // Obtenemos el item que necesitamos de la variable base de datos
+                    const miItem = baseDeDatos.filter((itemBaseDatos) => {
+                        // ¿Coincide las id? Solo puede existir un caso
+                        return itemBaseDatos.id === parseInt(item);
+                    });
+                    // Cuenta el número de veces que se repite el producto
+                    const cantItem = carrito.reduce((total, itemId) => {
+                        // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
+                        return itemId === item ? total += 1 : total;
+                    }, 0);
+
+                    $(".cart-count").text(cantItem);
+
+                    var listItem = '<div class="cart-info-group-'+miItem[0].id+'">'+
+                                        '<a><img src="images/'+miItem[0].imagen+'" alt="producto" style="width: 30%; border-radius: 10%;"></a>'+ 
+                                        '<div class="cart-info">'+
+                                            '<label>'+miItem[0].nombre+'</label>'+
+                                            '<p>Precio por unidad: S/. '+miItem[0].precio+'</p>'+
+                                        '</div>'+
+                                        '<button class="action-cart" onclick="aumentar('+miItem[0].id+');" title="Quitar"><i class="fa fa-plus"></i></button>'+  
+                                        '<input type="text" class="action-cart" id="cant-item-'+miItem[0].id+'" name="cant-item" value="'+cantItem+'" style="width: 30%">'+
+                                        '<button class="action-cart" onclick="disminuir('+miItem[0].id+');" title="Agregar"><i class="fa fa-minus"></i></button>'+
+                                        '<button class="action-cart eliminar-item" item="'+miItem[0].id+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>'+      
+                                        '<hr>'+
+                                    '</div>';
+
+                    $('#carrito').append(listItem);
+                });
+
+               // Renderizamos el precio total en el HTML
+                $("#precio-total").text(calcularTotal());
+            }
+ 
+            $(document).on("click", ".eliminar-item", function(){
+                var dataID = $(this).attr("item");
+
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": true,
+                    "newestOnTop": true,
+                    "progressBar": false,
+                    "timeOut": "500",
+                    "positionClass": "toast-top-right"
+                }
+                            
+                carrito = carrito.filter((carritoId) => {
+                    return carritoId !== dataID;
+                });
+                // volvemos a renderizar
+                renderizarCarrito();
+
+                toastr.success("Producto eliminado correctamente", "Producto");
+            });
+
+            /*Calcula el precio total teniendo en cuenta los productos repetidos*/
+            function calcularTotal() {
+                // Recorremos el array del carrito 
+                return carrito.reduce((total, item) => {
+                    // De cada elemento obtenemos su precio
+                    const miItem = baseDeDatos.filter((itemBaseDatos) => {
+                        return itemBaseDatos.id === parseInt(item);
+                    });
+                    // Los sumamos al total
+                    return parseInt(total) + parseInt(miItem[0].precio);
+                }, 0).toFixed(2);
+            }
+
+            // Inicio
+            renderizarProductos();
+            renderizarCarrito();
+        });
+
+
+        function aumentar(dataID) {
+            var elemento = $("#cant-item-"+dataID).val();
             var cantidad = parseInt(elemento);
             cantidad ++;
-            $("#cantidad").val(cantidad);
+            $("#cant-item-"+dataID).val(cantidad);
         }
 
-        function disminuir() {
-            var elemento = $("#cantidad").val();
+        function disminuir(dataID) {
+            var elemento = $("#cant-item-"+dataID).val(); 
             var cantidad = parseInt(elemento);
             cantidad --;
-            $("#cantidad").val(cantidad);
+            $("#cant-item-"+dataID).val(cantidad);
         }
     </script>
 </body>
