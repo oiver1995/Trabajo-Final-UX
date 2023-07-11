@@ -16,146 +16,178 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="public/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="public/images/apple-touch-icon.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"/>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/css/bootstrap.min.css">
     <!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="public/css/style.css">
     <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="public/css/responsive.css">
     <!-- color -->
-    <link id="changeable-colors" rel="stylesheet" href="css/colors/orange.css" />
+    <link id="changeable-colors" rel="stylesheet" href="public/css/colors/orange.css" />
 
     <!-- Modernizer -->
-    <script src="js/modernizer.js"></script>
+    <script src="public/js/modernizer.js"></script>
 
     <!-- Sweet Alert -->
-    <script src="assets/js/plugin/sweetalert2/sweetalert2.all.js"></script>
+    <!--script src="public/assets/js/plugin/sweetalert2/sweetalert2.all.js"></script-->
 </head>
 
 <style type="text/css">
-.reserve-book-btn button:hover {
-    color: #1f1f1f;
-    background-color: white;
-}
+    .reserve-book-btn button:hover {
+        color: #1f1f1f;
+        background-color: white;
+    }
 
-.cart-notification {
-    position: relative;
-    display: inline-block;
-}
+    .cart-notification {
+        position: relative;
+        display: inline-block;
+    }
 
-.cart-notification .cart-count {
-    position: absolute;
-    top: 30px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 50%;
-    padding: 0px;
-    width: 16px;
-    height: 16px;
-    text-align: center;
-}
+    .cart-notification .cart-count {
+        position: absolute;
+        top: 30px;
+        background-color: red;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        border-radius: 50%;
+        padding: 0px;
+        width: 16px;
+        height: 16px;
+        text-align: center;
+    }
 
-.cart-notification .fa-shopping-cart {
-    font-size: 24px;
-}
+    .cart-notification .fa-shopping-cart {
+        font-size: 24px;
+    }
 
-.sidebar {
-    height: 100%;
-    width: 400px;
-    position: fixed;
-    right: 0;
-    background-color: white;
-    z-index: 999;
-    transition: all 0.5s;
-    box-shadow: rgba(0, 0, 0, 0.15) -15px 0px 25px 0px;
-}
+    .sidebar {
+        height: 100%;
+        width: 400px;
+        position: fixed;
+        right: 0;
+        background-color: white;
+        z-index: 999;
+        transition: all 0.5s;
+        box-shadow: rgba(0, 0, 0, 0.15) -15px 0px 25px 0px;
+    }
 
-.bar {
-    display: block;
-    height: 5px;
-    width: 50px;
-    background-color: #EF8354;
-    margin: 10px auto;
-}
+    .bar {
+        display: block;
+        height: 5px;
+        width: 50px;
+        background-color: #EF8354;
+        margin: 10px auto;
+    }
 
-.move-to-left {
-    -webkit-transform: translateX(-400px);
-    -moz-transform: translateX(-400px);
-    -ms-transform: translateX(-400px);
-    -o-transform: translateX(-400px);
-    transform: translateX(-400px);
-}
+    .move-to-left {
+        -webkit-transform: translateX(-400px);
+        -moz-transform: translateX(-400px);
+        -ms-transform: translateX(-400px);
+        -o-transform: translateX(-400px);
+        transform: translateX(-400px);
+    }
 
-.sidebar-list {
-    text-align: center;
-    height: 72%;
-    padding: 0px 15px;
-    max-height: calc(100vh - 210px);
-    overflow-y: scroll;
-}
+    .sidebar-list {
+        text-align: center;
+        height: 72%;
+        padding: 0px 15px;
+        max-height: calc(100vh - 210px);
+        overflow-y: scroll;
+    }
 
-.sidebar-anchor:hover:before {
-    width: 100%;
-}
+    .sidebar-anchor:hover:before {
+        width: 100%;
+    }
 
-.circle {
-    width: 10%;
-    height: 4%;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-left: -5%;
-    background-color: #EF8354;
-}
+    .circle {
+        width: 10%;
+        height: 4%;
+        cursor: pointer;
+        border-radius: 50%;
+        margin-left: -5%;
+        background-color: #EF8354;
+    }
 
-.close {
-    float: left;
-    font-size: 30px;
-    opacity: 1;
-    color: white;
-    margin-left: 30%;
-    margin-top: 10%;
-}
+    .close {
+        float: left;
+        font-size: 30px;
+        opacity: 1;
+        color: white;
+        margin-left: 30%;
+        margin-top: 10%;
+    }
 
-.cart-footer {
-    padding: 20px 15px 0px;
-    text-align: center;
-    box-shadow: 0px -3px 7px 0px rgba(0, 0, 0, 0.08);
-}
+    .cart-footer {
+        padding: 20px 15px 0px;
+        text-align: center;
+        box-shadow: 0px -3px 7px 0px rgba(0, 0, 0, 0.08);
+    }
 
-.action-cart {
-    line-height: inherit;
-    border: 2px dotted #ccc;
-    background: #f5f5f5;
-    color: #202020;
-    text-transform: capitalize;
-    border-radius: 4px;
-    opacity: 1;
-    text-align: center;
-}
+    .action-cart {
+        line-height: inherit;
+        border: 2px dotted #ccc;
+        background: #f5f5f5;
+        color: #202020;
+        text-transform: capitalize;
+        border-radius: 4px;
+        opacity: 1;
+        text-align: center;
+    }
 
-.toast-success {
-    border: 1px #e75b1e;
-    background: #e75b1e;
-    text-align: left;
-}
+    .toast-success {
+        border: 1px #e75b1e;
+        background: #e75b1e;
+        text-align: left;
+    }
 
-#toast-container > .toast {
-  opacity: 0.9 !important;
-}
+    #toast-container > .toast {
+      opacity: 0.9 !important;
+    }
+
+    @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+        .special-menu {
+            width: 35rem!important;
+            height: 60rem!important;
+        }
+
+        #owl-demo .item {
+            width: 35rem!important;
+            height: 60rem!important;
+        }
+    }
+
+    .countdown {
+        font-weight: 500;
+        font-size: 44px!important;
+        color: #CAA78C;
+    }
 </style>
 
 <body>
     <div id="loader">
         <div id="status"></div>
+    </div>
+
+    <!-- Capa Bloqueo -->
+    <div id="capabloqueo" class="modal animated fadeIn" data-keyboard="false" data-backdrop="static" tabindex="3" style=" z-index: 1090 !important;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="text-align:center">
+                    <br>
+                        Esperando respuesta del servidor...<br>
+                        <img src="public/images/cargando.gif" width="70" heigth="70" />
+                    <br>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="site-header">
@@ -174,7 +206,7 @@
                                 </button>
                                 <div class="logo">
                                     <a class="navbar-brand js-scroll-trigger logo-header" href="#">
-                                        <img src="images/logo.png" alt="">
+                                        <img src="public/images/logo.png" alt="">
                                     </a>
                                 </div>
                             </div>
@@ -245,8 +277,8 @@
                 <h3>Total: S/. <span id="precio-total"></span> </h3>
             </div>
 
-            <div class="reserve-book-btn text-center" style="padding-top: 0px;" onclick="solicitarPedido()">
-                <button class="hvr-underline-from-center">Solicitar</button>
+            <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                <button class="hvr-underline-from-center btnRegistrarSolicitud">Realizar Pedido</button>
             </div>
         </div>
     </div>
@@ -280,7 +312,7 @@
                                                             </div>
                                                         </a>
                                                         <div class="item-img">
-                                                            <img src="images/special-menu-1.jpg" alt="sp-menu">
+                                                            <img src="public/images/special-menu-1.jpg" alt="sp-menu">
                                                         </div>
                                                     </div>
                                                     <div class="item item-type-zoom">
@@ -294,7 +326,7 @@
                                                             </div>
                                                         </a>
                                                         <div class="item-img">
-                                                            <img src="images/special-menu-2.jpg" alt="sp-menu">
+                                                            <img src="public/images/special-menu-2.jpg" alt="sp-menu">
                                                         </div>
                                                     </div>
                                                     <div class="item item-type-zoom">
@@ -308,7 +340,7 @@
                                                             </div>
                                                         </a>
                                                         <div class="item-img">
-                                                            <img src="images/special-menu-3.jpg" alt="sp-menu">
+                                                            <img src="public/images/special-menu-3.jpg" alt="sp-menu">
                                                         </div>
                                                     </div>
                                                     <div class="item item-type-zoom">
@@ -322,7 +354,7 @@
                                                             </div>
                                                         </a>
                                                         <div class="item-img">
-                                                            <img src="images/special-menu-1.jpg" alt="sp-menu">
+                                                            <img src="public/images/special-menu-1.jpg" alt="sp-menu">
                                                         </div>
                                                     </div>
                                                     <div class="item item-type-zoom">
@@ -336,7 +368,7 @@
                                                             </div>
                                                         </a>
                                                         <div class="item-img">
-                                                            <img src="images/special-menu-2.jpg" alt="sp-menu">
+                                                            <img src="public/images/special-menu-2.jpg" alt="sp-menu">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -385,8 +417,8 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
                         <div class="about-images">
-                            <img class="about-main" src="images/about-main.jpg" alt="About Main Image">
-                            <img class="about-inset" src="images/about-inset.jpg" alt="About Inset Image">
+                            <img class="about-main" src="public/images/about-main.jpg" alt="About Main Image">
+                            <img class="about-inset" src="public/images/about-inset.jpg" alt="About Inset Image">
                         </div>
                     </div>
                 </div>
@@ -467,7 +499,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/arroz-pollo.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/arroz-pollo.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Arroz con Pollo</h3>
@@ -484,7 +516,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/seco-res.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/seco-res.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Seco de Res</h3>
@@ -501,7 +533,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/tallarin-pollo.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/tallarin-pollo.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Tallarín con Pollo</h3>
@@ -539,7 +571,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/frutas-rojas.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/frutas-rojas.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Frutas Rojas</h3>
@@ -555,7 +587,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/tarta-zanahoria.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/tarta-zanahoria.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Tarta de Zanahoria</h3>
@@ -571,7 +603,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/tarta-queso.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/tarta-queso.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Tarta de Queso</h3>
@@ -609,7 +641,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/sangria-melocoton.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/sangria-melocoton.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Sangría de Melocotón</h3>
@@ -625,7 +657,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/limonada-granada.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/limonada-granada.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Limonada de Granada</h3>
@@ -641,7 +673,7 @@
                             <div class="col-md-4 col-sm-6">
                                 <div class="sf-team">
                                     <div class="thumb">
-                                        <a href="#"><img src="images/jugo-naranja.jpg" alt=""></a>
+                                        <a href="#"><img src="public/images/jugo-naranja.jpg" alt=""></a>
                                     </div>
                                     <div class="text-col">
                                         <h3>Jugo de Naranja</h3>
@@ -668,6 +700,68 @@
         <!-- end container -->
     </div>
     <!-- end team-main -->
+ 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel" style="margin-bottom: -8%; padding: 2% 0% 4% 2%; font-size: 25px;">Órden Generada</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" style="padding: 2rem 5rem 2rem 5rem">
+                    <div id="app" class="col-11">
+                        <div class="row fact-info mt-3">
+                            <div class="col-3">
+                                <h3>N° de Órden</h3>
+                                <p>001</p>
+                            </div>
+                            <div class="col-3">
+                                <h3>Fecha</h3>
+                                <p>11/07/2023</p>
+                            </div>
+                        </div>
+
+                        <div class="row my-5">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sopa</td>
+                                        <td>2</td>
+                                        <td>2.00</td>
+                                        <td>4.00</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>S/.4.00</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>    
+
 
     <div id="reservation" class="reservations-main pad-top-100 pad-bottom-100">
         <div class="container">
@@ -675,73 +769,35 @@
                 <div class="form-reservations-box">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.1s">
-                            <h2 class="block-title text-center">Reservaciones</h2>
+                            <h2 class="block-title text-center">Estado de su Órden</h2>
                         </div>
-                        <h4 class="form-title">FORMULARIO DE RESERVA</h4>
-                        <p>POR FAVOR LLENE TODOS LOS CAMPOS REQUERIDOS. ¡GRACIAS!</p>
 
-                        <form id="contact-form" method="post" class="reservations-box" name="contactform" action="mail.php">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="text" name="nombre" id="nombre" placeholder="Nombre" required="required">
-                                </div>
-                            </div>
-                            <!-- end col -->
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="email" name="email" id="email" placeholder="E-Mail" required="required">
-                                </div>
-                            </div>
-                            <!-- end col -->
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="text" name="celular" id="celular" placeholder="Celular">
-                                </div>
-                            </div>
-                            <!-- end col -->
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="number" name="cantPer" id="cantPer" placeholder="Cantidad Personas">
-                                </div>
-                            </div>
-                            <!-- end col -->
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="text" name="date-picker" id="date-picker" placeholder="Fecha" required="required"/>
-                                </div>
-                            </div>
-                            <!-- end col -->
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <input type="text" name="time-picker" id="time-picker" placeholder="Hora" required="required"/>
-                                </div>
-                            </div>
+                        <h4 class="form-title">Su órden se encuentra en esatado:</h4>
+                        <div class="text-col text-center">
+                            <h3 style="color: #e75b1e;">En proceso</h3>
+                        </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <div class="form-box">
-                                    <select name="ocasion" id="ocasion" class="selectpicker">
-                                        <option selected disabled>Ocasión</option>
-                                        <option>Matrimonio</option>
-                                        <option>Cumpleaños</option>
-                                        <option>Aniversario</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- end col -->
+                        <p>Tiempo restante para su entrega:</p>   
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-check-input" type="checkbox" id="flexCheckChecked" onclick="activarBtnGrabar();">
-                                <label class="form-check-label" for="flexCheckChecked">Acepto los <a href="https://www.labisteccalima.com/tyc" target="_blank">términos y condiciones</a></label>
-                            </div>
+                        <!--form class="form">
+                            <input type="number" min="1" class="time-input" placeholder="Enter Countdown">
+                            <select name="format">
+                            <option value="hours">Hours</option>
+                            <option value="minutes">Minutes</option>
+                            <option value="seconds">Seconds</option>
+                            </select>
+                            <button type="submit" class="set-btn">SET</button>
+                        </form-->
 
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="reserve-book-btn text-center">
-                                    <button class="hvr-underline-from-center" type="submit" value="SEND" id="submit">RESERVAR MI MESA </button>
-                                </div>
-                            </div>
-                            <!-- end col -->
-                        </form>
-                        <!-- end form -->
+                        <!-- countdown text -->
+                        <p class="countdown">00 : 00 : 00</p>
+
+                        <br>
+
+                        <div class="reserve-book-btn text-center" style="padding-top: 0px;">
+                            <button class="hvr-underline-from-center" data-toggle="modal" data-target="#exampleModal">Ver Pedido</button>
+                        </div>
+
                     </div>
                     <!-- end col -->
                 </div>
@@ -779,7 +835,7 @@
                     <div class="footer-in-main">
                         <div class="footer-logo">
                             <div class="text-center">
-                                <img src="images/logo.png" alt="" />
+                                <img src="public/images/logo.png" alt="" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -908,11 +964,16 @@
     </section>
 
     <!-- ALL JS FILES -->
-    <script src="js/all.js"></script>
+    <script src="public/js/all.js"></script>
 
-    <script src="js/bootstrap.min.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>
     <!-- ALL PLUGINS -->
-    <script src="js/custom.js"></script>
+    <script src="public/js/custom.js"></script>
+
+    <!-- Timer -->
+    <script src="public/assets/js/plugin/count-timer/count-timer.js"></script>
+
+    <script src="public/assets/js/plugin/sweetalert2/sweetalert2.all.js"></script>
 
     <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
@@ -989,7 +1050,7 @@
                     var producto = '<div class="col-md-4 col-sm-6">'+
                                         '<div class="sf-team">'+
                                             '<div class="thumb">'+
-                                                '<a><img src="images/'+info.imagen+'" alt="sopa-entrada"></a>'+
+                                                '<a><img src="public/images/'+info.imagen+'" alt="sopa-entrada"></a>'+
                                             '</div>'+
                                             '<div class="text-col">'+
                                                 '<h3>'+info.nombre+'</h3>'+
@@ -1027,13 +1088,6 @@
                 });
             });
 
-            // Verificar si existe un estado guardado
-            if(localStorage.getItem('menu') !== null) {
-              // Restaurar el estado anterior de la pestaña
-              var tabState = localStorage.getItem('menu');
-              // Actualizar el contenido de la pestaña con el estado guardado
-              $('#menu').html(tabState);
-            }
 
             /*Dibuja todos los productos guardados en el carrito*/
             function renderizarCarrito() {
@@ -1059,13 +1113,14 @@
                     $(".cart-count").text(cantItem);
 
                     var listItem = '<div class="cart-info-group-'+miItem[0].id+'">'+
-                                        '<a><img src="images/'+miItem[0].imagen+'" alt="producto" style="width: 30%; border-radius: 10%;"></a>'+ 
+                                        '<a><img src="public/images/'+miItem[0].imagen+'" alt="producto" style="width: 30%; border-radius: 10%;"></a>'+ 
                                         '<div class="cart-info">'+
-                                            '<label>'+miItem[0].nombre+'</label>'+
-                                            '<p>Precio por unidad: S/. '+miItem[0].precio+'</p>'+
+                                            '<label class="name-item">'+miItem[0].nombre+'</label>'+
+                                            '<p class="price-item" price-item="'+miItem[0].precio+'">Precio Unitario: S/. '+miItem[0].precio+'</p>'+
                                         '</div>'+
+
                                         '<button class="action-cart" onclick="aumentar('+miItem[0].id+');" title="Quitar"><i class="fa fa-plus"></i></button>'+  
-                                        '<input type="text" class="action-cart" id="cant-item-'+miItem[0].id+'" name="cant-item" value="'+cantItem+'" style="width: 30%">'+
+                                        '<input type="text" class="action-cart cant-item" id="cant-item-'+miItem[0].id+'" value="'+cantItem+'" style="width: 30%">'+
                                         '<button class="action-cart" onclick="disminuir('+miItem[0].id+');" title="Agregar"><i class="fa fa-minus"></i></button>'+
                                         '<button class="action-cart eliminar-item" item="'+miItem[0].id+'" title="Eliminar"><i class="fas fa-trash-alt"></i></button>'+      
                                         '<hr>'+
@@ -1116,7 +1171,6 @@
             renderizarProductos();
             renderizarCarrito();
         });
-
 
         function aumentar(dataID) {
             var elemento = $("#cant-item-"+dataID).val();
