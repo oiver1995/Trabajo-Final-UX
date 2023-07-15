@@ -1,0 +1,18 @@
+
+CREATE DATABASE gestion;
+USE gestion;
+
+CREATE TABLE `venta_detalle` (
+  `id_vent_det` int NOT NULL AUTO_INCREMENT,
+  `producto` varchar(50) DEFAULT NULL,
+  `cantidad` int DEFAULT NULL,
+  `precio` decimal(10,2) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `usuario_creacion` varchar(50) DEFAULT NULL,
+  `ip_creacion` varchar(50) DEFAULT NULL,
+  `fecha_creacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_vent_det`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+SELECT * FROM venta_detalle;
